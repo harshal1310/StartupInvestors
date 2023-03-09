@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <base href="/">
+<link  rel="stylesheet" href="/styles/style.css">    
+    <!-- <style>
+      * {
+    margin: 0;
+    padding: 0;
+    font-family: Helvetica;
+  }
+  body {
+    overflow-x: hidden;
+     /* Hide scrollbars */
+  }
+
+.header{
+    width: 100%;
+    display: flex;
+    background-color: black;
+    height: 70px;
+    align-items: center;
+    padding: 10px;
+    box-shadow:2px 2px 10px 2px #888888 ;
+}
+nav{
+    display: flex;
+}
+
+nav ul{
+   list-style:  none;
+   display: flex;
+   gap : 50px;
+  
+}
+
+nav a{
+    text-decoration: none;
+    color : White;
+    font-size: 18px;
+    border-bottom: solid 0px white;
+}
+
+nav a:after {
+    display:block;
+    content: '';
+    border-bottom: solid 2px white;  
+    transform: scaleX(0);  
+    transition: transform 250ms ease-in-out;
+  }
+
+
+nav  a:hover:after {
+    transform: scaleX(1);
+}
+
+
+table{
+    /* border: 2px solid black; */
+    width: 100%;
+
+}
+
+table, th  {
+    /* border: 1px solid grey; */
+    border-collapse: collapse;
+    padding: 5px;
+  }
+
+.details-row{
+    background-color: lightgreen;
+}
+
+table tr td{
+    padding : 40px;
+}
+
+table tr:nth-child(odd) {
+    background-color: #f1f1f1;
+  }
+  table tr:nth-child(even) {
+    background-color: #ffffff;
+  }
+
+
+
+.tabs{
+    display: flex;
+    gap :50px;
+    list-style: none;
+    padding: 20px;
+    height : 40px;
+    align-items : center;
+    /* background : lightgrey; */
+    box-sizing: border-box;
+}
+
+.tabs a{
+    text-decoration: none;
+    color: black;
+}
+
+.tabs li{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height : 30px;
+    padding : 2px 10px 2px 10px ;
+    background-color: rgba(135, 206, 250, 0.395);
+    border: none;
+    border-radius: 15px;
+    transition: linear 0.3s ;
+}
+
+.tabs li:hover{
+    background-color: black;
+    color : white;
+}
+.tabs li:hover a{
+    
+    color : white;
+}
+
+
+.container{
+    display: flex;
+    align-items: center;
+    /* border-bottom: 2px solid black; */
+    padding: 10px;
+    
+}
+
+.container-img{
+    width : 100%;
+    height : 450px;
+    margin-top: 50px;
+}
+
+.container-img img{
+    width : 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.container .text-content{
+    margin-left: 40px;
+    font-size: 24px;
+}
+
+.join-btn{
+    width: 100px;
+    height: 40px;
+    border-radius: 3px;
+    border : none;
+    background : lightgreen;
+    font-size: 16px;
+    transition :linear  0.2s ;
+    margin-top : 20px
+}
+
+.join-btn:hover{
+    background-color: black;
+    color : white;
+    
+}
+.people{
+    height: 600px;
+    width: 100%;
+    
+    
+}
+
+.table-data {
+   
+    padding: 5px;
+}
+
+.chat-icon{
+    position: fixed;
+    z-index: 3000;
+    bottom: 0;
+    right: 0;
+}
+
+ .chat-btn{
+    float: right;
+    width: 100px;
+    height: 40px;
+    border-radius: 3px;
+    border : none;
+    background : lightgreen;
+    font-size: 16px;
+    transition :linear  0.2s ;
+    margin : 0px 20px 10px 0px;
+    
+}
+
+.chat-box{
+    display: none;
+    margin : 0px 20px 10px 0px;
+    height: 400px;
+    width : 300px;
+    background-color: rgb(238, 238, 238);
+    border-radius: 5px;
+    transition: transform 250ms ease;
+    animation: zoom 1s ;
+   
+
+}
+
+@keyframes zoom {
+    from{
+        translate: 0px 20px;
+       
+    }
+    to{
+        translate: 0px 0px;
+        
+    }
+}
+
+.chat-box .cancel-btn{
+    float: right;
+    margin-right: 10px;
+    margin-top: 10px;
+   
+}
+
+
+.chat-box .cancel-btn:hover{
+   cursor: context-menu ;
+}
+
+
+
+    </style> -->
+</head>
+<body>
+    <header id="header" class="header">
+     
+        <nav>
+          <ul class="test">
+            <li><a href="#">Home</a></li>
+            <li><a href="showstartups">Startups</a></li>
+            <li><a href="showinvestors">Investors</a></li>
+            <li><a href="#">About</a></li>
+          </ul>
+
+        </nav>
+
+    </header>
+
+    <div class="container">
+        <div class="text-content">
+          <h1>Find Your next Unicorn</h1>
+          <p>Join this platform and connect to the best business Startups
+            and to get the funding from the one of the best investors
+            </p>
+          <button class="join-btn">Join Now</button>
+        </div>
+        <div class="container-img">
+          <img src="main.jpg" alt="" srcset="">
+        </div>
+    </div>
+
+    <div class="people">
+        <ul class="tabs">
+          <li class="investors"><a href="#">Investors</a></li>
+          <li class="startups"><a href="#">Startups</a></li>
+        </ul>
+     
+        <div class="table-data">
+          <table>
+            <thead>
+                <tr>
+                    <th>No</th>    
+                <th>Company Name</th>
+                <th>Description</th>
+                <th>Founded</th>
+                <th>Business Model</th>
+                <th>Employees</th>
+                <th>Funding Stage</th>
+                <th>Total Raised</th>
+                <th>Tags</th>
+              </tr>  
+            </thead>
+          
+            <% if(data.length){
+
+                for(var i = 0; i< data.length; i++) {%>  
+                <tr>
+                  <th scope="row"><%= (i+1) %></th>
+                  <td><%= data[i].CompanyName%></td>
+                  <td><%= data[i].Description%></td>
+                  <td><%= data[i].Fundedin%></td>
+                  <td><%= data[i].BType%></td>
+                  <td><%= data[i].Employees%></td>
+                  <td><%= data[i].FundingStage%></td>
+                  <td><%= data[i].TotalRaised%></td>
+                  <td><%= data[i].Tags%></td>
+                </tr>
+                <% }
+                        
+                 }else{ %>
+                     <tr>
+                        <td colspan="3">No user</td>
+                     </tr>
+                  <% } %>    
+               
+<!--            <tr class="table-head">
+              <th>Company Name</th>
+              <th>Description</th>
+              <th>Founded</th>
+              <th>Business Model</th>
+              <th>Employees</th>
+              <th>Funding Stage</th>
+              <th>Total Raised</th>
+            </tr>
+            <tr class="details-row">
+              <td>Jainam Software</td>
+              <td>The startup that creates NBFC softwares</td>
+              <td>2018</td>
+              <td>B2B</td>
+              <td>25</td>
+              <td>pre-funding</td>
+              <td>500000 </td>
+            </tr>
+            <tr class="details-row">
+              <td>Jainam Software</td>
+              <td>The startup that creates NBFC softwares</td>
+              <td>2018</td>
+              <td>B2B</td>
+              <td>25</td>
+              <td>pre-funding</td>
+              <td>500000 </td>
+            </tr>
+        -->      </table>
+
+
+        </div>
+    
+
+
+
+
+
+
+
+
+
+    </div>
+    <!-- This table tab is closing -->
+
+    <!-- For chat section -->
+
+
+      <div class="chat-icon">
+          <div class="chat-box" id="chat-box">
+           
+             <div class="cancel-chat">
+              <p class="cancel-btn" id="cancel-btn">X</p>
+             </div>
+          </div>
+          <button class="chat-btn">Chat</button>
+       
+      </div>
+
+    
+  
+    
+
+
+
+
+
+    <script src="script.js"></script>
+</body>
+</html>
