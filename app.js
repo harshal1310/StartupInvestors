@@ -9,25 +9,8 @@ const port = process.env.PORT || 3000;
 const path=require("path");
 var jwt = require('jsonwebtoken');
 var http = require('http').Server(app);
-var io = require('socket.io')(http);
-var Message = require('./src/models/msg');
-app.get('/messages', (req, res) => {
-  Message.find({},(err, messages)=> {
-    res.send(messages);
-  })
-})
-app.post('/messages', (req, res) => {
-  var message = new Message(req.body);
-  message.save((err) =>{
-    if(err)
-      sendStatus(500);
-    io.emit('message', req.body);
-    res.sendStatus(200);
-  })
-})
-io.on('connection', () =>{
-  console.log('a user is connected')
-})
+var socketio = require('socket.io');
+const msg=require('./src/models/msg');
 const cookieParser = require('cookie-parser');
 
 const static_path = path.join(__dirname,"../public/");
@@ -105,17 +88,7 @@ StartupModel.find((err,docs)=>{
 })
 });
 app.get("/showinvestors", (req,res)=>{
-  //const user=UserModel.find();
-    /*UserModel.find((err, docs) => {
-      if (!err) {
-          res.render("_show", {
-              data: docs
-          });
-      } else {
-          console.log('Failed to retrieve the Course List: ' + err);
-      }
-  });
-  */
+  
   const investor=InvestorModel.find();
   InvestorModel.find((err,docs)=>{
     if(!err){
@@ -162,7 +135,24 @@ app.get("/addinvestors",(req,res)=>{
   
 }
 )
-app.get("/msgpage",(req,res)=>{
-  res.render("msgpage");
-}) 
-app.listen(port,()=>console.log("est"));
+app.get("/messages",(req,res)=>{
+  const investor=msg.find();
+  msg.find((err,docs)=>{
+    if(!err){
+  // console.log(docs);
+   res.send(docs);
+      //   res.render("_showinvestors",{data:docs});
+    }
+    else
+    {
+      console.log(err);
+    }
+  })  
+})
+ 
+const server=app.listen(port,()=>console.log("est"));
+const io = socketio(server)
+
+io.on('connection', (socket) => {
+    console.log('New connection')
+})
