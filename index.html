@@ -14,9 +14,9 @@
     <div class="jumbotron">
         <h1 class="display-4">Send Message</h1>
         <br>
-        <input id = "name" class="form-control" placeholder="Name">
+        <input id = "name" class="form-control" name="Name" placeholder="Name">
         <br>
-        <textarea id = "message" class="form-control" placeholder="Your Message Here"></textarea>
+        <textarea id = "message" class="form-control" name="Message" placeholder="Your Message Here"></textarea>
         <br>
         <button id="send" class="btn btn-success">Send</button>
     </div>
@@ -41,13 +41,13 @@
     }
 
     function getMessages(){
-      $.get('http://localhost:3000/messages', (data) => {
+      $.get('http://localhost:3000/sendmes', (data) => {
         data.forEach(addMessages);
       })
     }
 
     function sendMessage(message){
-      $.post('http://localhost:3000/messages', message)
+      $.post('http://localhost:3000/sendme', message)
     }
 </script>
 </body>

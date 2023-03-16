@@ -247,7 +247,7 @@ table tr:nth-child(odd) {
             <li><a href="#">Home</a></li>
             <li><a href="showstartups">Startups</a></li>
             <li><a href="showinvestors">Investors</a></li>
-            <li><a href="#">About</a></li>
+            <li><a href="inbox">Inbox</a></li>
           </ul>
 
         </nav>
@@ -290,7 +290,15 @@ table tr:nth-child(odd) {
                 for(var i = 0; i< data.length; i++) {%>  
                 <tr>
                   <th scope="row"><%= (i+1) %></th>
-                  <td><%= data[i].InvestorsName%></td>
+                  <td>
+                    <a href="/sendmessage?id=<%= data[i]._id%>" >
+                      
+                
+                    <%= data[i].InvestorsName%>
+                </a>    
+                </td>
+              
+                  
                   <td><%= data[i].InvestorType%></td>
                   <td><%= data[i].Investments%></td>
                   <td><%= data[i].Range%></td>

@@ -1,0 +1,20 @@
+<%
+  for(var i = 0; i< data.length; i++) {%>  
+    <li>
+           
+    
+    <h2>
+      <%=data[i].senderid%>
+    </h2>
+    <%
+  for(var j = 0; j< data[i].messages.length; j++) {%>
+    <h4>
+
+      <%=data[i].messages[j].msg%>
+    </h4>
+    <%}%>
+    
+    </li>
+    
+  <br>        
+  <%}%>
