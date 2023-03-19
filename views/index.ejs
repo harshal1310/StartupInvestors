@@ -16,6 +16,8 @@ body {
 .container {
   padding: 16px;
   background-color: white;
+  margin-left: 25%;
+  margin-right: 25%;
 }
 
 /* Full-width input fields */
@@ -24,7 +26,8 @@ input[type=text], input[type=password] {
   padding: 15px;
   margin: 5px 0 22px 0;
   display: inline-block;
-  border: none;
+  border: 1px solid black;
+  border-radius: 5px;
   background: #f1f1f1;
 }
 
@@ -39,6 +42,16 @@ hr {
   margin-bottom: 25px;
 }
 
+h1, p {
+  text-align: center;
+}
+body{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #2f363e;
+}
 /* Set a style for the submit button */
 .registerbtn {
   background-color: #04AA6D;
@@ -51,20 +64,14 @@ hr {
   opacity: 0.9;
 }
 
+button {
+  border-radius: 10px;
+}
+
 .registerbtn:hover {
-  opacity: 1;
+  background-color: #03472f;
 }
 
-/* Add a blue text color to links */
-a {
-  color: dodgerblue;
-}
-
-/* Set a grey background color and center the text of the "sign in" section */
-.signin {
-  background-color: #f1f1f1;
-  text-align: center;
-}
 </style>
 </head>
 <body>
@@ -74,14 +81,24 @@ a {
     <h1>Register</h1>
     <p>Please fill in this form to create an account.</p>
     <hr>
-
-    <label for="email"><b>Email</b></label>
-    <input type="text" placeholder="Enter Email" name="email" id="email" required>
-
-    <label for="psw"><b>Password</b></label>
-    <input type="password" placeholder="Enter Password" name="pass" id="password" required>
-
+    <label for="fisrtname"><b>Firstname</b></label>
+    <input type="text" placeholder="Enter your fisrtname" name="firstname" id="fisrtname" required>
     
+    <label for="lastname"><b>Lastname</b></label>
+    <input type="text" placeholder="Enter your lastname" name="lastname" id="lastname" required>
+    
+    <label for="email"><b>Email</b></label>
+    <input type="text" placeholder="Enter your email address" name="email" id="email" required>
+    
+    <label for="mobile"><b>Mobile No.</b></label>
+    <input type="text" placeholder="Enter your mobile no." name="mobile" id="mobile" required>
+    
+    <label for="password"><b>Password</b></label>
+    <input type="password" placeholder="Set your password" name="password" id="password" required>
+    
+    <label for="cpassword"><b>Confirm Password</b></label>
+    <input type="password" placeholder="Confirm your password" name="cpassword" id="cpassword" required>
+  
     <hr>
     <p>By creating an account you agree to our <a href="#">Terms & Privacy</a>.</p>
 

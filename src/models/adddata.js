@@ -3,19 +3,27 @@ const mongoose = require('mongoose');
 var jwt = require('jsonwebtoken');
 
 var schema = new mongoose.Schema({
-    name : {
+    firstname : {
         type : String,
-        //required: true
+        required: true
+    },
+    lastname : {
+        type : String,
+        required: true
     },
     email : {
         type: String,
         required: true,
         unique: true
     },
-    pass : {
+    mobile : {
+        type: Number,
+        required: true,
+        unique: true
+    },
+    password : {
         type: String,
         required: true,
-        
     },
     tokens:[{
         token:{
