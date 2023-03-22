@@ -80,7 +80,7 @@ res.send(err);
 //res.send("aa");
 })*/
 //var token="";
-app.post("/register", async (req, res) => {
+app.post("/", async (req, res) => {
   const user = new UserModel(req.body);
   const token = user.generateAuthToken();
   const userExist = await UserModel.findOne({ email: req.body.email });
@@ -116,7 +116,7 @@ app.post("/login", async (req, res) => {
       //const token = jwt.sign(data, jwtSecretKey);
 
       res.cookie('jwt', data);
-      res.render('home.ejs')
+      res.render('home.ejs', {profile:useremail.firstname})
     }
     else
       res.send("iNvalid")
@@ -172,7 +172,9 @@ app.get("/logout", auth, async (req, res) => {
 
 app.get("/home", (req, res) => {
   //  res.clearCookie("jwt");
-  res.render("home");
+  var profile = req.jwt.token.name;
+  // console.log(profile);
+  res.render("home", {profile:profile});
   //  res.send(req.cookies.jwt);
 })
 app.get("/addstartup", (req, res) => {
