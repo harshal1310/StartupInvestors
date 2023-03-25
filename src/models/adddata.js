@@ -31,8 +31,17 @@ var schema = new mongoose.Schema({
             required: true,
              
         }
-    }]
+    }],
+
+    Picture : String
+
 })
+
+
+
+
+
+
 schema.methods.generateAuthToken=async function(){
     try{
         var token = jwt.sign({ _id: this._id}, 'abcdefghijklmnopqrstuvwxyzabcdefsxa');

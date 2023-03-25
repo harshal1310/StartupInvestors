@@ -12,20 +12,33 @@ var http = require('http').Server(app);
 var socketio = require('socket.io');
 const msg = require('./src/models/msg');
 const submsg = require('./src/models/addmsg')
-const MongoClient = require("mongodb").MongoClient;
+const Mongo = require("mongoose");
 const url = 'mongodb://localhost:27017/';
 const databasename = "registergordata";
 const cookieParser = require('cookie-parser');
 const axios = require("axios");
+const upload=require('./src/models/addimg')
+/*///*const Grid = require("gridfs-stream");
+//const upload1 = require("./src/models/upload");
+//app.use("/file", upload1);
+
+const conn = Mongo.connection;
+conn.once("open", function () {
+    gfs = Grid(Mongo.mongo);
+    gfs.collection("photos");
+});*/
 const static_path = path.join(__dirname, "../public/");
 //console.log(static_path)
 app.use(express.static(__dirname + '/public'))
 app.set("view engine", "ejs")
+
 const jwtSecretKey = "abcdefghijklmnopqrstuvwxyz123456"
 app.use(express.json())
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }))
+app.use("/css",express.static(path.join(__dirname,'node_modules/bootstrap/dist/css')))
 
+app.use("/css",express.static(path.join(__dirname,'node_modules/bootstrap/dist/js')))
 const update_user = (req, res) => {
   axios.get('/chat', { params: { id: req.query.id } })
     .then(submsg.find({ senderid: req.cookies.jwt.id }, ((err, docs) => {
@@ -63,26 +76,12 @@ app.get("/userschat", (req, res) => {
 })
 app.get("/chat", update_user
 )
-/*
-app.get("/chat", (req,res)=>{
-  res.send(req.params.id);
-  /*
-//const array=await  submsg.find({senderid:"h1"});
- submsg.find({senderid:req.cookies.jwt.id,recieverid:req.params.id},((err,docs)=>{
-  if(!err)
-res.render("showparticularchat",{data:docs})
-else
-res.send(err);
-})
 
-)
-
-//res.send("aa");
-})*/
-//var token="";
-app.post("/", async (req, res) => {
+app.post("/",  async (req, res) => {
+ 
   const user = new UserModel(req.body);
-  const token = user.generateAuthToken();
+    const token = user.generateAuthToken();
+    
   const userExist = await UserModel.findOne({ email: req.body.email });
   if (userExist) {
     res.json({ error: "Email or Phone number already exists" });
@@ -94,11 +93,13 @@ app.post("/", async (req, res) => {
     }).catch((err) => { res.send(err) });
   }
 
+
 })
 app.get("/login", (req, res) => {
   res.render("login.ejs");
 })
-app.post("/login", async (req, res) => {
+
+app.post("/home", async (req, res) => {
   const email = req.body.email
   const psw = req.body.pass
   console.log(email);
@@ -116,7 +117,7 @@ app.post("/login", async (req, res) => {
       //const token = jwt.sign(data, jwtSecretKey);
 
       res.cookie('jwt', data);
-      res.render('home.ejs', {profile:useremail.firstname})
+      res.render('home', {profile:useremail})
     }
     else
       res.send("iNvalid")
@@ -172,11 +173,36 @@ app.get("/logout", auth, async (req, res) => {
 
 app.get("/home", (req, res) => {
   //  res.clearCookie("jwt");
-  var profile = req.jwt.token.name;
+  UserModel.findOne({_id:req.cookies.jwt.id},(err,profile)=>{
+    if(err)
+    res.send(err);
+   // console.log(profile)
+    res.render("home", {profile:profile});
+  })
   // console.log(profile);
-  res.render("home", {profile:profile});
+  
   //  res.send(req.cookies.jwt);
 })
+app.get("/g",(req,res)=>{
+  res.sendFile(__dirname + '/ind.html');
+
+})
+
+app.get("/s",auth,(req,res)=>{
+  
+  id=req.query.id;
+  
+   submsg.findOne( {senderid:req.cookies.jwt.id,recieverid:id}
+    
+    ,(err,docs)=>{
+  if(!err)
+  {//console.log(docs);
+    res.render('mypage',{data:docs})}
+  else
+  res.send(err);
+  })
+})
+  
 app.get("/addstartup", (req, res) => {
   const startup = new StartupModel({ CompanyName: "c2", Description: "new", Foundedin: "2022", BType: "B2C", Employees: "100-250", FundingStage: "100m", TotalRaised: "50m", Tags: "IT" });
   startup.save().then(() => {
@@ -304,7 +330,7 @@ app.post("/sendmessage", auth, async (req, res) => {
 }
 )
 app.get("/inbox", auth, (req, res) => {
-  submsg.find({ senderid: req.cookies.jwt.id }, (err, docs) => {
+  submsg.find({$or:[{senderid:req.cookies.jwt.id},{recieverid:req.cookies.jwt.id}]}, (err, docs) => {
     if (!err)
       res.render('inbox', { data: docs })
     else
@@ -372,6 +398,18 @@ app.post('/mes', async (req, res) => {
     console.log('Message Posted')
   }
 
+})
+app.get('/profile',(req,res)=>{
+res.render('update_profile')
+})
+app.post('/editprofile',upload.single('single_input'),(req,res)=>{
+  UserModel.findOneAndUpdate({ _id: req.cookies.jwt.id }, { Picture: req.file.filename }, { upsert: true }, function (err, doc) {
+    if (err) {
+      console.log(err);
+      res.send(500, { error: err });
+    } else
+      res.send("done")
+  });
 })
 //app.post('/messages',addmessage);
 
