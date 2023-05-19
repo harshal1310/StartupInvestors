@@ -14,8 +14,8 @@ const auth=async (req,res,next)=>{
       
     }
     catch(e){
-     res.send(e);
-     console.log(e);
+     res.render("login")
+     //console.log(e);
           // res.render('index.ejs');
     }
 }

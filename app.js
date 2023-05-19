@@ -42,7 +42,7 @@ app.use("/css",express.static(path.join(__dirname,'node_modules/bootstrap/dist/j
 const update_user = (req, res) => {
   axios.get('/chat', { params: { id: req.query.id } })
     .then(submsg.find({ senderid: req.cookies.jwt.id }, ((err, docs) => {
-      console.log(req.cookies.jwt.id);
+     // console.log(req.cookies.jwt.id);
       if (!err)
         res.render("showparticularchat", { data: docs })
       else
@@ -102,7 +102,7 @@ app.get("/login", (req, res) => {
 app.post("/home", async (req, res) => {
   const email = req.body.email
   const psw = req.body.pass
-  console.log(email);
+  //console.log(email);
   const useremail = await UserModel.findOne({ email: email });
   console.log(useremail != null);
   if (useremail) {
@@ -171,7 +171,7 @@ app.get("/logout", auth, async (req, res) => {
   //  res.send(req.cookies.jwt);
 })
 
-app.get("/home", (req, res) => {
+app.get("/home", auth,(req, res) => {
   //  res.clearCookie("jwt");
   UserModel.findOne({_id:req.cookies.jwt.id},(err,profile)=>{
     if(err)
@@ -192,7 +192,7 @@ app.get("/s",auth,(req,res)=>{
   
   id=req.query.id;
   
-   submsg.findOne( {senderid:req.cookies.jwt.id,recieverid:id}
+   submsg.find( {senderid:req.cookies.jwt.id,recieverid:id}
     
     ,(err,docs)=>{
   if(!err)
@@ -263,10 +263,10 @@ app.get('/startups', auth, m_user)
 var id = "";
 const chat =  (req, res) => {
   id = req.query.id;
-  console.log(id);
-  console.log(req.cookies.jwt.id);
+  //console.log(id);
+  //console.log(req.cookies.jwt.id);
 
-   submsg.findOne({senderid:req.cookies.jwt.id, recieverid:id}, (err, docs) => {
+   submsg.find({$or:[{senderid:req.cookies.jwt.id, recieverid:id},{senderid:id,recieverid:req.cookies.jwt.id}]}, (err, docs) => {
     if (!err) {
       res.render('mypage', { data: docs })
       // res.send(docs)
@@ -295,7 +295,7 @@ app.post("/sendmessage", auth, async (req, res) => {
             console.log(err);
             res.send(500, { error: err });
           } else
-            res.render('mypage', { data: doc });
+            res.render('inbox', { data: doc });
         });
       }
       catch (e) {
@@ -349,10 +349,10 @@ app.post('/mes', async (req, res) => {
     //
     //console.log(req.cookies.jwt.id);
     //console.log(req.params.id);
-    console.log(req.body.name);
-    console.log(req.body.message);
+   // console.log(req.body.name);
+    //console.log(req.body.message);
     if (array) {
-      console.log(array.senderid);
+      //console.log(array.senderid);
       try {
         const newarray = array.messages;
         // console.log("if")
@@ -386,7 +386,7 @@ app.post('/mes', async (req, res) => {
         res.render("login");
       }).catch((err) => { res.send(err) });
 
-      console.log('saved');
+  //    console.log('saved');
       res.send("ss");
     }
   }
